@@ -5,8 +5,6 @@ from django.urls import path
 from . import views  # Supondo que todas as views estejam no mesmo módulo `views`
 from django.conf.urls.static import static
 from django.conf import settings
-from demanda.management_views import run_migrations
-from demanda.management_user import create_superuser
 
 
 
@@ -27,14 +25,10 @@ urlpatterns = [
 
     # URLs do relatório
     path('relatorio/', views.relatorio, name='relatorio'),  # Página principal do relatório
-    path('relatorio/preview/', views.relatorio_preview_view, name='relatorio_preview'),  # Pré-visualização do relatório
-       
- 
+    path('relatorio/preview/', views.relatorio_preview_view, name='relatorio_preview'),  # Pré-visualização do relatório    
     path('gerar_pdf/', views.gerar_pdf, name='gerar_pdf'),
-    path('run-migrations/', run_migrations, name='run-migrations'),
-    path('criar-superusuario/', create_superuser, name='criar_superusuario'),
 ]
-    
+
 
 
 if settings.DEBUG:
