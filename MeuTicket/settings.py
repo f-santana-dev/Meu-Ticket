@@ -13,20 +13,22 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
+def env_bool(key, default=False):
+    return os.environ.get(key, str(default)).strip().lower() in ("1", "true", "yes", "on")
+
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-!+n@chr=o0#@)-m5n78ufgl09&0&lv$my+iunix6-zd1gfiw=w'
+SECRET_KEY = os.environ.get("SECRET_KEY", "dev-insecure-change-me")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env_bool("DEBUG", True)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [host.strip() for host in os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",") if host.strip()]
 
 
 # Application definition
@@ -205,12 +207,17 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
+SECURE_SSL_REDIRECT = env_bool("SECURE_SSL_REDIRECT", False)
+SESSION_COOKIE_SECURE = env_bool("SESSION_COOKIE_SECURE", False)
+CSRF_COOKIE_SECURE = env_bool("CSRF_COOKIE_SECURE", False)
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'homepage'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'  # Servidor SMTP do Gmail
 EMAIL_PORT = 587  # Porta do servidor SMTP do Gmail
 EMAIL_USE_TLS = True  # Ativa criptografia TLS
-EMAIL_HOST_USER = 'bragasan34@gmail.com'  # Seu e-mail do Gmail
-EMAIL_HOST_PASSWORD = 'ktbx ayyt eokn oppl'  # A senha do seu e-mail ou App Password
-DEFAULT_FROM_EMAIL = 'bragasan34@gmail.com'  # E-mail usado como remetente
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')  # Seu e-mail do Gmail
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')  # A senha do seu e-mail ou App Password
+DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', EMAIL_HOST_USER)  # E-mail usado como remetente
 
