@@ -49,10 +49,23 @@
   
     <!-- Bot√£o Sair, alinhado √† direita -->
     <li class="nav-exit">
-      <a href="{% url 'login' %}"> 
-        <img src="{% static 'img/saida.png' %}" alt="Sair" />        
-        <span>Encerrar Sess√£o </span>
+      {# ERRADO (did·tico): apenas ir para login n„o encerra a sess„o #}
+      {#
+      <a href="{% url 'login' %}">
+        <img src="{% static 'img/saida.png' %}" alt="Sair" />
+        <span>Encerrar Sess„o</span>
       </a>
+      #}
+
+      {# CORRETO: enviar POST para a rota de logout real #}
+      <form method="post" action="{% url 'logout' %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" style="background:none;border:none;padding:0;cursor:pointer;">
+          <img src="{% static 'img/saida.png' %}" alt="Sair" />
+          <span>Encerrar Sess„o </span>
+        </button>
+      </form>
     </li>
   </ul>
 </nav>
+

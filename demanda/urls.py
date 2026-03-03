@@ -10,8 +10,9 @@ from django.conf import settings
 
 urlpatterns = [
     # Outras rotas
-    path('', views.login_view, name='login'),  # Página de login
-    path('homepage/', views.homepage, name='homepage'),  # Página inicial após login
+    path('', views.login_view, name='login'),  # Pagina de login
+    path('logout/', views.logout_view, name='logout'),  # Logout real da sessao
+    path('homepage/', views.homepage, name='homepage'),  # Pagina inicial apos login
     path('cadastrar_usuario/', views.cadastrar_usuario, name='cadastrar_usuario'),
     path('demanda/<int:id_demanda>/', views.historico_demanda, name='historico_demanda'),
     path('filtrar_demandas/', views.filtrar_demandas, name='filtrar_demandas'),
@@ -23,9 +24,9 @@ urlpatterns = [
     path('demanda/<int:demanda_id>/reabrir/', views.reabrir_demanda, name='reabrir_demanda'),
  
 
-    # URLs do relatório
-    path('relatorio/', views.relatorio, name='relatorio'),  # Página principal do relatório
-    path('relatorio/preview/', views.relatorio_preview_view, name='relatorio_preview'),  # Pré-visualização do relatório    
+    # URLs do relatorio
+    path('relatorio/', views.relatorio, name='relatorio'),  # Pagina principal do relatorio
+    path('relatorio/preview/', views.relatorio_preview_view, name='relatorio_preview'),  # Pre-visualizacao do relatorio    
     path('gerar_pdf/', views.gerar_pdf, name='gerar_pdf'),
 ]
 
@@ -33,3 +34,5 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+

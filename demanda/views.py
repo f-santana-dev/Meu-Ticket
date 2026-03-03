@@ -7,7 +7,7 @@ from .forms import  UsuarioForm,Nova_DemandaForm #, #DemandaForm,
 from django.contrib import messages  # Import correto para as mensagens
 import logging  # Adiciona o módulo de logging
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.utils import timezone  # Para lidar com datas
 from .models import Area, Servico, Urgencia, Demanda,Mensagem, Usuario
 
@@ -78,6 +78,12 @@ def login_view(request):
             messages.error(request, "Email ou senha inválidos")
 
     return render(request, 'login.html')
+
+@login_required(login_url='login')
+def logout_view(request):    
+    logout(request)
+    return redirect('login')
+
  
  
  
@@ -799,6 +805,7 @@ def gerar_pdf(request):
 
 
 # Create your views here.
+
 
 
 
