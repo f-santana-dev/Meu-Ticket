@@ -1,0 +1,135 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    width: 90%;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Seção esquerda */
+.left-section {
+    width: 25%;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.left-section h2 {
+    color: #1e90ff;
+    margin-bottom: 20px;
+}
+
+.section-details .detail-group {
+    margin-bottom: 15px;
+}
+
+.section-details strong {
+    font-size: 14px;
+}
+
+.section-details p {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Seção direita */
+.right-section {
+    width: 75%;
+    padding: 20px;
+}
+
+.ticket-header h3 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.ticket-header p {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+/* Avaliação */
+.rating-section p {
+    margin-bottom: 10px;
+    color: #555;
+}
+
+.rating-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.rating-buttons button {
+    background-color: #ddd;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.rating-buttons button:hover {
+    background-color: #ccc;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.send-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Descrição */
+.description-section label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.description-section textarea {
+    margin-bottom: 20px;
+}
+
+/* Histórico de mensagens */
+.history-section {
+    margin-top: 20px;
+}
+
+.message {
+    margin-bottom: 20px;
+}
+
+.message-header {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.message-body {
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}

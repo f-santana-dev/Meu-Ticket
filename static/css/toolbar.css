@@ -1,0 +1,130 @@
+
+
+
+.stiJsViewerVerticalMenuSeparator {
+	height: 1px;
+	background: #d4d4d4;
+	margin: 1px 2px 1px 30px;
+}
+
+/* Mouse */
+.stiJsViewerMenuStandartItem {
+	white-space: nowrap;
+    cursor: default;
+    font-size: 12px;
+
+}
+
+.stiJsViewerMenuStandartItemOver {
+    background: #d5e1f2;
+}
+
+.stiJsViewerMenuStandartItemSelected {
+    background: #c2d5f2;
+}
+
+.stiJsViewerMenuStandartItemDisabled {
+    color: #d6d3d6;
+}
+
+.stiJsViewerClearAllStyles {
+	padding: 0px;
+	margin: 0px;
+	border: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+
+.stiJsViewerParametersMenuInnerTable {
+    border: 0px;
+    padding: 0px;
+    border-collapse: separate;
+	color: #202020;
+}
+
+.stiJsViewerParametersMenuInnerTable td {
+	padding: 0px;
+}
+
+.stiJsViewerParametersMenuSeparator {
+    height: 1px;
+    width: 100%;
+    background: #d4d4d4;
+}
+
+
+
+
+/* Mouse */
+.stiJsViewerStandartSmallButton {
+    cursor: default;
+    font-size: 12px;
+  
+}
+
+.stiJsViewerStandartSmallButtonDefault {
+	border: 1px solid transparent;
+}
+
+.stiJsViewerStandartSmallButtonOver {
+    background: #d5e1f2;
+    border: 1px solid transparent;
+}
+
+.stiJsViewerStandartSmallButtonSelected {
+    background: #c2d5f2;
+    border: 1px solid transparent;
+}
+
+.stiJsViewerStandartSmallButtonDisabled {
+    color: #d6d3d6;
+    border: 1px solid transparent;
+}
+
+.stiJsViewerTextBoxEditButton {
+    border: 1px solid #ababab;
+    background: #ffffff;
+    border-Left: 0px;
+}
+
+
+
+
+.stiJsViewerTextBoxDefault {
+    border: 1px solid #ababab;
+}
+
+.stiJsViewerTextBoxOver {
+    border: 1px solid #a3bde3;
+}
+
+.stiJsViewerTextBoxDisabled {
+    border: 1px solid #b7b4b7;
+}
+
+.stiJsViewerToolBar {
+	overflow-X: auto;
+	overflow-Y: hidden;
+	width: 100%;
+	position: relative;
+	z-index: 2;
+	color: #202020;
+}
+
+.stiJsViewerToolBarTable {
+	cursor: default;
+    font-size: 12px;
+	border: 1px solid #c6c6c6;
+	background: #ffffff;
+	width: 100%;
+    border-collapse: separate;
+	color: #202020;
+}
+
+.stiJsViewerToolBarSeparator {
+	border: 0;
+	background: #d4d4d4;
+}

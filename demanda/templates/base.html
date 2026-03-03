@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Meu Ticket{% endblock %}</title>
+
+    <!-- Link do seu arquivo CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+    <!-- Inclua a navbar -->
+    {% include 'navbar.html' %}
+
+    <!-- Conteúdo dinâmico da página -->
+    {% block content %}
+
+    
+    {% comment %} {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %} {% endcomment %}
+
+    {% endblock %}
+
+
+    
+</body>
+</html>

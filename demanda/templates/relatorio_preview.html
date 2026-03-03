@@ -1,0 +1,92 @@
+<!--lrelatorio_preview.htm--> 
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relatório de Demandas - Preview</title>
+    <link rel="stylesheet" href="{% static 'css/relatorio_preview.css' %}" />
+  </head>
+  <body>
+    <!-- Barra de ferramentas fixa no topo -->
+    <div class="toolbar">{% include 'toolbar.html' %}</div>
+
+    <div id="relatorio-container" class="container">
+      <header class="header">
+        <div class="titulo-container">
+          <!-- Logomarca à esquerda do título -->
+          <img
+            src="{% static 'img/MeuTicket.png' %}"
+            alt="Logo do sistema"
+            class="logo"
+          />
+          <h1>Relatório de Demandas</h1>
+        </div>
+        <div class="filters">
+          <p><strong>Status:</strong> {{ filtros.status }}</p>
+          <p><strong>Área:</strong> {{ filtros.area }}</p>
+          <p><strong>Usuário:</strong> {{ filtros.usuario }}</p>
+          <p><strong>Data Inicial:</strong> {{ filtros.data_inicio }}</p>
+          <p><strong>Data Final:</strong> {{ filtros.data_fim }}</p>
+        </div>
+      </header>
+
+      <main>
+        <table class="demandas-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Título</th>
+              <th>Status</th>
+              <th>Operador</th>
+              <th>Aberto em</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for demanda in page_obj %}
+            <tr>
+              <td>{{ demanda.id }}</td>
+              <td>{{ demanda.titulo }}</td>
+              <td>{{ demanda.status }}</td>
+              <td>{{ demanda.operador.nome }}</td>
+              <td>{{ demanda.data_criacao|date:"d/m/Y" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="5">Nenhuma demanda encontrada.</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </main>
+
+      {% comment %} <footer class="pagination no-print">
+        {% if page_obj.has_previous %}
+        <a
+          class="pagination-link"
+          href="?page={{ page_obj.previous_page_number }}&{{ filtros_query }}"
+        >
+          &laquo; Anterior
+        </a>
+        {% endif %}
+        <span>Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+        <a
+          class="pagination-link"
+          href="?page={{ page_obj.next_page_number }}&{{ filtros_query }}"
+        >
+          Próxima &raquo;
+        </a>
+        {% endif %}
+    </footer> {% endcomment %}
+    </div>
+
+    
+
+
+  
+  </body>
+</html>

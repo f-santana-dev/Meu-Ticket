@@ -1,0 +1,58 @@
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/navbar2.css' %}">
+
+<div class="welcome">
+  <img src="{% static 'img/MeuTicket.png' %}" alt="Logo" class="logo" />
+  <span>Olá, {{ request.user.nome }}</span>
+</div>
+
+<nav class="navbar">
+  <!-- Saudação com o nome do usuário -->
+
+  <!-- Ícones de funcionalidades -->
+  <ul class="nav-icons">
+    <li>
+     
+      <a href="{% url 'cadastrar_usuario' %}">
+        <img src="{% static 'img/cadastro.png' %}" alt="Cadastro de Usuários" />
+        <span>Cadastrar Usuários</span>
+      </a>
+    </li>
+
+
+
+    <li>
+      
+      <a href="{% url 'cadastrar_nova_demanda' %}">         
+        <img src="{% static 'img/suporte.png' %}" alt="Cadastrar Demandas" />
+        <span>Cadastrar Chamado</span>
+      </a>
+    </li>
+
+
+
+
+    <li>
+      <a href="{% url 'filtrar_demandas' %}">
+        <img src="{% static 'img/filtro.png' %}" alt="Filtrar Demandas" />
+        <span>Filtrar Demandas</span>
+      </a>
+    </li>
+    <li>
+      
+      <a href="{% url 'relatorio' %}"> 
+          <img src="{% static 'img/relatorio.png' %}" alt="Relatório Demandas" />
+          <span>Relatório Demandas</span>
+      </a>
+  </li>
+  
+    <!-- Botão Sair, alinhado à direita -->
+    <li class="nav-exit">
+      <a href="{% url 'login' %}"> 
+        <img src="{% static 'img/saida.png' %}" alt="Sair" />        
+        <span>Encerrar Sessão </span>
+      </a>
+    </li>
+  </ul>
+</nav>

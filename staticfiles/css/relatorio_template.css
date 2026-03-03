@@ -1,0 +1,140 @@
+/* relatorio_preview.css */
+
+/* Estilo para a barra de ferramentas */
+.toolbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: #0b41f3;
+  color: #fff;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  z-index: 100;
+}
+.toolbar button {
+  background: #bde6f0;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+.toolbar button:hover {
+  background-color: #45a049;
+}
+
+/* Estilo do painel de relatórios */
+.report-panel {
+  margin-top: 80px; /* Ajuste para não sobrepor com a barra de ferramentas */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.report-content {
+  width: 210mm; /* Largura padrão de uma folha A4 */
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.page {
+  height: 297mm; /* Altura padrão de uma folha A4 */
+  padding: 20px;
+  overflow: hidden;
+  page-break-after: always;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.report-item {
+  margin-bottom: 20px;
+}
+
+.pagination-info {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Exclui a barra de ferramentas na impressão */
+@media print {
+  .toolbar {
+      display: none;
+  }
+  .report-panel {
+      margin-top: 0;
+  }
+  .page {
+      page-break-after: always;
+  }
+}
+
+
+/* Título do relatório */
+.report-title {
+  text-align: center;
+  font-size: 1.8em;
+  margin: 20px 0;
+  color: #333;
+}
+
+/* Estilos da tabela de relatório */
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.report-table thead th {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.report-table tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+.report-table tfoot td {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: left;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Estilos para a página de impressão */
+@media print {
+  .toolbar, .pagination-info {
+      display: none;
+  }
+
+  .report-title {
+      text-align: center;
+      font-size: 1.5em;
+  }
+
+  .report-table {
+      page-break-inside: auto;
+  }
+
+  .report-table tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+  }
+
+  .report-table thead {
+      display: table-header-group;
+  }
+
+  .report-table tfoot {
+      display: table-footer-group;
+  }
+}

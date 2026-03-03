@@ -1,0 +1,185 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    height: 100vh; 
+    /* overflow: auto; Permite rolagem se necessário */
+  }
+  
+  /* Wrapper geral do formulário */
+  .form-wrapper {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    height: calc(80vh - 10px); /* Altura ajustada ao viewport menos margem */
+  }
+  
+  /* Título do formulário */
+  .form-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 1.8rem;
+    color: #333;
+    flex-shrink: 0; /* Garante que o título não seja comprimido */
+  }
+
+
+  /* Formulário rolável */
+  .form-responsive {
+    overflow-y: auto; /* Adiciona barra de rolagem vertical apenas ao formulário */
+    flex-grow: 1; /* Faz o formulário ocupar o espaço restante */
+    padding: 10px;
+  }
+  
+  /* Estrutura em grid */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  /* Estilo dos campos do formulário */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+    color: #333;
+  }
+  
+  input,
+  select,
+  textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+  
+  textarea {
+    resize: vertical; /* Permite redimensionamento vertical */
+    min-height: 80px;
+  }
+  
+  .number {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  /* Estilo dos botões */
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .btn-secondary {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .btn-secondary:hover {
+    background-color: #c82333;
+  }
+  
+  /* Estilos das mensagens */
+  .alert {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+  }
+  
+  .alert-success {
+    color: #3c763d;
+    background-color: #ccf3bd;
+    border: 1px solid #d6e9c6;
+  }
+  
+  .alert-error {
+    color: #e01916;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 768px) {
+    .form-grid {
+      grid-template-columns: 1fr; /* Coluna única em telas menores */
+    }
+  
+    .form-wrapper {
+      padding: 15px;
+      margin: 10px;
+    }
+  
+    .form-title {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .form-wrapper {
+      padding: 10px;
+      margin: 5px;
+    }
+  
+    label {
+      font-size: 0.85rem;
+    }
+  
+    input,
+    select,
+    textarea {
+      font-size: 0.9rem;
+      padding: 8px;
+    }
+  
+    .form-title {
+      font-size: 1.2rem;
+    }
+  
+    .btn {
+      font-size: 0.9rem;
+      padding: 8px 15px;
+    }
+  }
+  

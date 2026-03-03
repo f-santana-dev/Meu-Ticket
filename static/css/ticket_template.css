@@ -1,0 +1,267 @@
+/* ticket_template.css */
+
+
+/* Resetando margens e preenchimentos */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos gerais do corpo */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+ 
+}
+
+
+/* Centralizar o título */
+.titulo-container {
+    text-align: center; /* Centraliza o título */
+    margin-bottom: 5px; /* Espaçamento inferior */
+    margin-top: 10px;
+    color: #007bff;
+}
+
+
+/* Container principal */
+.container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+    
+
+/* Sidebar à esquerda */
+.sidebar {
+    width: 25%;
+    background-color: #f8f8f8;
+    padding: 20px;
+    border-right: 0.5px solid #ddd;
+}
+
+.sidebar h2 {
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+    color:  #007bff;
+}
+
+.ticket-info {
+    margin-bottom: 30px;
+}
+
+.ticket-info label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #a7a1a1;
+}
+
+.ticket-info p {
+    margin-left: 10px;
+    color:  #007bff;;
+    font-weight: bold;
+}
+
+/* Conteúdo principal */
+.content {
+    width: 75%;
+    padding: 20px;
+}
+
+.header h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #007bff;;
+}
+
+.header p {
+    font-size: 0.9rem;
+    color: #a7a1a1;
+    margin-bottom: 20px;
+}
+
+/* Campo de Descrição */
+.description label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+    color: #a7a1a1;
+}
+
+.description textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    
+}
+
+/* Campo de mensagem */
+.message-box {
+    margin-top: 20px;
+}
+
+.message-box label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+    color: #a7a1a1;
+}
+
+.message-box textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    font-weight: bold;
+
+}
+
+.send-btn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.send-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Conversas com barra de rolagem */
+.conversation {
+    max-height: 300px; /* Define a altura máxima para a área de mensagens */
+    overflow-y: auto;  /* Adiciona a barra de rolagem vertical */
+    margin-top: 30px;
+    padding: 10px;
+    border: 1px solid #ddd; /* Adiciona uma borda ao redor do histórico de mensagens */
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+
+.message {
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.message p {
+    margin-bottom: 10px;
+   
+}
+
+.message strong {
+    color: #a7a1a1;
+}
+
+
+
+
+
+
+
+/* Estilo para o botão de Iniciar Atendimento */
+.btn-iniciar {
+    background-color: #007bff; /* Cor azul para indicar início */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-iniciar:hover {
+    background-color: #0056b3; /* Azul mais escuro no hover */
+}
+
+/* Estilo para o botão de Encerrar Demanda */
+.btn-encerrar {
+    background-color: #28a745; /* Cor verde para indicar encerramento */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-encerrar:hover {
+    background-color: #218838; /* Verde mais escuro no hover */
+}
+
+/* Estilo para o botão de Reabrir Demanda */
+.btn-reabrir {
+    background-color: #dc3545; /* Cor vermelha para indicar que pode ser reaberta */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-reabrir:hover {
+    background-color: #c82333; /* Vermelho mais escuro no hover */
+}
+
+
+
+
+/* Estilos para as mensagens de alerta */
+/* Estilo das mensagens */
+.messages {
+    position: fixed;
+    top: 130px; /* Ajuste para ficar logo abaixo do navbar, se necessário */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 80%; /* Ajuste a largura conforme necessário */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* Efeito de desaparecimento */
+.fade-out {
+    opacity: 1;
+    transition: opacity 1.5s ease-out;
+}
+
+.fade-out.hide {
+    opacity: 0;
+}

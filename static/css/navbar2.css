@@ -1,0 +1,119 @@
+/* Reseta margens e padding padrão dos elementos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* Garante que largura e altura incluam borda e padding */
+}
+
+/* Estilização da área de boas-vindas */
+.welcome {
+  display: flex; /* Elementos alinhados em linha */
+  text-align: center; /* Centraliza o texto */
+  background-color: rgb(38, 54, 148); /* Fundo azul */
+  align-items: center; /* Alinha verticalmente os itens */
+  color: rgb(255, 255, 255); /* Texto branco */
+  gap: 10px; /* Espaçamento entre itens */
+  padding: 5px; /* Espaçamento interno */
+}
+
+.logo {
+  height: 30px; /* Altura da logo */
+  margin-left: 5px; /* Espaçamento à esquerda */
+  border-radius: 5px; /* Bordas arredondadas */
+}
+
+.user-info {
+  color: white; /* Texto branco */
+  font-size: 14px; /* Tamanho da fonte */
+  margin-bottom: 25px; /* Espaçamento abaixo */
+}
+
+/* Estilização da barra de navegação */
+.navbar {
+  background-color: #d2dde9; /* Fundo cinza claro */
+  display: flex; /* Layout flexível */
+  justify-content: space-between; /* Espaça os elementos extremos */
+  align-items: flex-start; /* Alinha os itens ao topo */
+  padding: 5px; /* Espaçamento interno */
+  color: rgb(44, 17, 143); /* Cor do texto */
+  border: 1px solid black; /* Borda preta */
+}
+
+.nav-icons {
+  display: flex; /* Layout flexível */
+  flex-wrap: wrap; /* Permite quebra de linha quando necessário */
+  list-style: none; /* Remove estilo padrão de lista */
+  justify-content: left; /* Alinha itens à esquerda */
+  width: 100%; /* Ocupa largura total */
+}
+
+.nav-icons li {
+  margin: 0 20px; /* Espaçamento lateral entre os itens */
+  text-align: center; /* Centraliza o texto */
+  width: 100px; /* Largura fixa para uniformidade */
+}
+
+.nav-icons a {
+  text-decoration: none; /* Remove sublinhado do link */
+  color: inherit; /* Herda a cor do pai */
+  display: flex; /* Layout flexível */
+  flex-direction: column; /* Itens empilhados verticalmente */
+  align-items: center; /* Centraliza os itens */
+  font-size: 14px; /* Define tamanho fixo da fonte */
+}
+
+.nav-icons img {
+  height: 40px; /* Altura fixa para ícones */
+  width: 40px; /* Largura fixa para ícones */
+  border: 1px solid rgb(156, 152, 152); /* Borda cinza clara */
+  border-radius: 5px; /* Bordas arredondadas */
+}
+
+.nav-icons span {
+  margin-top: 5px; /* Espaçamento acima do texto */
+  text-align: center; /* Centraliza o texto */
+  width: 100%; /* Ocupa largura total */
+  font-size: 14px; /* Define tamanho fixo da fonte */
+}
+
+/* Alinhamento do botão "Sair" à direita */
+.nav-exit {
+  margin-left: auto; /* Empurra o botão "Sair" para a direita */
+}
+
+/* Ajustes de foco e hover para links */
+.nav-icons a:hover,
+.nav-icons a:focus {
+  background-color: rgba(0, 0, 0, 0.1); /* Fundo claro ao passar o mouse ou focar */
+  border-radius: 5px; /* Bordas arredondadas */
+  outline: none; /* Remove o contorno padrão */
+}
+
+/* Força a consistência no tamanho da fonte para estados de hover e focus */
+.nav-icons a:hover span,
+.nav-icons a:focus span {
+  font-size: 14px; /* Mantém o tamanho da fonte fixo */
+}
+
+/* Define estilos globais para evitar interferências externas */
+body {
+  font-size: 14px; /* Define tamanho base da fonte */
+  font-family: Arial, sans-serif; /* Define a fonte padrão */
+}
+
+/* Ajustes para dispositivos menores */
+@media (max-width: 600px) {
+  .nav-icons li {
+    width: auto; /* Ajusta a largura dos itens */
+    margin: 5px; /* Reduz margens para caber na tela */
+  }
+
+  .nav-icons img {
+    height: 30px; /* Reduz tamanho dos ícones */
+    width: 30px; /* Reduz tamanho dos ícones */
+  }
+
+  .nav-icons span {
+    font-size: 12px; /* Reduz tamanho do texto */
+  }
+}

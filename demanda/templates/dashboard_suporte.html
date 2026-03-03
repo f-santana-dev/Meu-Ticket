@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Dashboard de Suporte{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/dashboard_suporte.css' %}"> <!-- Link para o CSS separado -->
+
+<div class="container">
+    <div class="titulo-fixo">
+        <h2>Demandas Abertas</h2>
+    </div>
+
+    <div class="demandas-container">
+        {% if demandas_abertas %}
+            <ul class="lista-demandas">
+                {% for demanda in demandas_abertas %}
+                    <li class="demanda-item">
+                        <strong>{{ demanda.titulo }}</strong> - {{ demanda.descricao }}
+                        <a class="detalhes-link" href="{% url 'historico_demanda' demanda.id %}"> - Ver Detalhes</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Não há novas demandas no momento.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block titulo %}Cadastro de Demandas{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/cadastrar_nova_demanda.css' %}" />
+
+<!-- Exibição de mensagens de sucesso ou erro -->
+{% if messages %}
+<div class="messages">
+  {% for message in messages %}
+  <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+    {{ message }}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="form-wrapper">
+  <h2 class="form-title">Cadastro de Demanda</h2>
+
+  <form method="POST" enctype="multipart/form-data" class="form-responsive">
+    {% csrf_token %}
+    <div class="form-grid">
+      <!-- Coluna esquerda -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="id_id">Número do Ticket</label>
+          <h2 class="number">{{ novo_id }}</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="id_servico">Serviço</label>
+          {{ form.servico|safe }}
+        </div>
+
+        <div class="form-group">
+          <label for="id_urgencia">Urgência</label>
+          {{ form.urgencia|safe }}
+        </div>
+      </div>
+
+      <!-- Coluna direita -->
+      <div class="form-column">
+        <div class="form-group">
+          <label for="id_titulo">Título</label>
+          {{ form.titulo|safe }}
+        </div>
+
+        <div class="form-group">
+          <label for="id_descricao">Descrição</label>
+          {{ form.descricao|safe }}
+        </div>
+
+        <div class="form-group">
+          <label for="id_imagem">Anexar Imagem</label>
+          {{ form.imagem|safe }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Ações -->
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Cadastrar</button>
+      <button type="reset" class="btn btn-secondary">Limpar</button>
+    </div>
+  </form>
+</div>
+
+<script src="{% static 'js/cadastrar_nova_demanda.js' %}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    setTimeout(function () {
+      const messages = document.querySelectorAll(".alert");
+      messages.forEach(function (message) {
+        message.style.display = "none";
+      });
+    }, 2000);
+  });
+</script>
+{% endblock %}

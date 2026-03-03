@@ -1,0 +1,221 @@
+/* relatorio_preview.css*/
+
+/* Estilos gerais */
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.5; /* Altura de linha consistente */
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Barra de ferramentas fixa no topo */
+.toolbar {
+  position: fixed; /* Fixa no topo da página */
+  top: 0;
+  left: 0;
+  width: 100%; /* Largura total */
+  background-color: #fff; /* Fundo branco */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  z-index: 1000; /* Garante que fique acima de outros elementos */
+  padding: 1px; /* Espaçamento interno */
+  border-bottom: 1px solid #ccc; /* Linha inferior */
+}
+
+/* Container principal */
+.container {
+  /* width: 210mm; Largura fixa para página A4 */
+  width: calc(210mm - 10mm); /* Subtraia as margens configuradas no PDF */
+  height: 297mm; /*Altura fixa para página A4 */
+
+  /* top | left and right | bottom */
+  margin: 40px auto 1px;
+  padding: 50px; /* Espaçamento interno */
+  background: #fff; /* Fundo branco */
+  /* border: 1px solid #ccc; Borda fina  */
+  /*border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  overflow: hidden; /* Impede conteúdo de ultrapassar o limite */
+  display: flex;
+  flex-direction: column; /* Organiza elementos verticalmente */
+}
+
+/* Cabeçalho */
+.header {
+  display: flex; /* Ajustado para exibir os elementos lado a lado */
+  flex-direction: column; /* Organiza itens verticalmente */
+  margin-bottom: 10px; /* Espaçamento inferior */
+  margin-top: 20px;
+}
+
+.titulo-container {
+  margin-top: -5px;
+  display: flex; /* Coloca o logo e o título lado a lado */
+  align-items: center; /* Centraliza verticalmente logo e título */
+  gap: 150px; /* Espaçamento entre logo e título */
+  margin-bottom: 1px; /* Espaçamento inferior entre título e filtros */
+}
+
+.titulo-container h1 {
+  font-size: 24px; /* Tamanho do título */
+  color: #444;
+  margin: 0; /* Remove margens extras */
+}
+
+.logo {
+  width: 80px; /* Define largura fixa para o logo */
+  height: 40px; /* Mantém proporção do logo */
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap; /* Permite quebra de linha */
+  gap: 10px; /* Espaçamento entre os filtros */
+  justify-content: flex-start; /* Alinha os filtros à esquerda */
+  width: 100%; /* Ocupa toda a largura */
+  margin-top: 10px; /* Espaçamento superior entre o título e os filtros */
+  margin-bottom: -10px; /* Espaçamento superior entre o título e os filtros */
+}
+
+.filters p {
+  margin: 10px; /* Remove margens entre os parágrafos */
+  font-size: 14px; /* Define tamanho da fonte dos filtros */
+  color: #555; /* Cor do texto */
+}
+
+.filters strong {
+  color: #333; /* Destaque do texto */
+}
+
+/* Tabela de demandas */
+.demandas-table {
+  width: 100%; /* Ocupa toda a largura */
+  border-collapse: collapse; /* Remove espaços entre bordas */
+  table-layout: fixed; /* Garante largura fixa para as colunas */
+  margin-top: 0; /* Remove o espaçamento entre filtros e tabela */
+}
+
+.demandas-table th,
+.demandas-table td {
+  padding: 5px; /* Espaçamento interno entre texto e borda */
+  text-align: left; /* Alinhamento do texto à esquerda */
+  border: 1px solid #ddd; /* Borda clara entre células */
+  white-space: nowrap; /* Impede quebras de linha */
+  overflow: hidden; /* Oculta conteúdo excedente */
+  text-overflow: ellipsis; /* Adiciona "..." ao exceder o limite */
+}
+
+/* Largura específica para cada coluna */
+.demandas-table th:nth-child(1),
+.demandas-table td:nth-child(1) {
+  width: 5%; /* Coluna ID */
+}
+
+.demandas-table th:nth-child(2),
+.demandas-table td:nth-child(2) {
+  width: 55%; /* Coluna Título */
+}
+
+.demandas-table th:nth-child(3),
+.demandas-table td:nth-child(3) {
+  width: 10%; /* Coluna Status */
+}
+
+.demandas-table th:nth-child(4),
+.demandas-table td:nth-child(4) {
+  width: 20%; /* Coluna Operador */
+}
+
+.demandas-table th:nth-child(5),
+.demandas-table td:nth-child(5) {
+  width: 10%; /* Coluna Data */
+}
+
+.demandas-table th {
+  background-color: #f4f4f4; /* Fundo claro para o cabeçalho */
+  font-weight: bold; /* Texto em negrito */
+}
+
+.demandas-table td {
+  font-size: 10px; /* Fonte menor para maior densidade */
+}
+
+.demandas-table tr:hover {
+  background-color: #f1f1f1; /* Destaque na linha ao passar o mouse */
+}
+
+/* Altura mínima para cada linha */
+.demandas-table tr {
+  height: 30px; /* Define altura mínima */
+}
+
+/* Força a tabela a começar logo após os filtros */
+.table-wrapper {
+  flex-grow: 1; /* Faz a área da tabela crescer para preencher o espaço disponível */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Alinha o conteúdo ao topo */
+}
+
+/* Rodapé de paginação */
+.pagination {
+  text-align: center; /* Centraliza os links de paginação */
+  margin-top: 20px; /* Espaçamento superior */
+}
+
+.pagination-link {
+  color: #007bff; /* Cor do link */
+  text-decoration: none; /* Remove sublinhado */
+  margin-top: 20px; /* Espaçamento lateral entre links */
+  margin-bottom: 20px; /* Garante que o rodapé não sobreponha o conteúdo */
+}
+
+.pagination-link:hover {
+  text-decoration: underline; /* Adiciona sublinhado ao passar o mouse */
+}
+
+/* Estilos para impressão */
+@media print {
+  body {
+    background-color: #fff;
+  }
+  .page-break {
+    display: block;
+    page-break-before: always;
+  }
+
+  .container {
+    width: 190mm; /* Ajusta a largura para o formato A4 com margens */
+    margin: 10mm auto; /* Define margens consistentes */
+    padding: 10mm; /* Adiciona preenchimento interno */
+    border: none;
+    box-shadow: none;
+  }
+
+  .toolbar {
+    display: none; /* Oculta a barra de ferramentas na impressão */
+  }
+
+  .demandas-table {
+    table-layout: auto; /* Garante largura dinâmica na tabela */
+  }
+
+  .pagination {
+    display: none; /* Oculta a paginação ao gerar o PDF */
+  }
+
+  /* Ajustes para o HTML exportado */
+  .demandas-table th,
+  .demandas-table td {
+    padding: 5px; /* Aumenta o espaçamento */
+    font-size: 10px; /* Garante fonte legível */
+    border: 1px solid #ddd;
+  }
+
+  .demandas-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+    color: #333;
+  }
+}

@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block titulo %}Filtrar Demandas{% endblock %}
+
+{% block content %}
+<!-- Referência ao CSS específico -->
+<link rel="stylesheet" href="{% static 'css/filtros_responsivo.css' %}">
+
+<div class="container">
+    <h1>Filtrar Demandas</h1>
+    <form method="get" action="{% url 'filtrar_demandas' %}" class="filter-form">
+        <!-- Filtro por Título da Demanda -->
+        <div class="form-group">
+            <label for="tituloDemanda">Título da Demanda:</label>
+            <input type="text" id="tituloDemanda" name="tituloDemanda" placeholder="Digite o título da demanda" value="{{ request.GET.tituloDemanda }}">
+        </div>
+
+        <!-- Filtro por Número da Demanda -->
+        <div class="form-group">
+            <label for="numDemanda">Número da Demanda:</label>
+            <input type="number" id="numDemanda" name="numDemanda" placeholder="Digite o número da demanda" value="{{ request.GET.numDemanda }}">
+        </div>
+
+        <!-- Filtro por Status -->
+        <div class="form-group">
+            <label for="status">Status:</label>
+            <select id="status" name="status">
+                <option value="todos" {% if request.GET.status == 'todos' %}selected{% endif %}>Todos</option>
+                <option value="aberto" {% if request.GET.status == 'aberto' %}selected{% endif %}>Aberto</option>
+                <option value="fechado" {% if request.GET.status == 'fechado' %}selected{% endif %}>Fechado</option>
+            </select>
+        </div>
+
+        <!-- Botão para filtrar -->
+        <button type="submit" class="btn">Filtrar</button>
+    </form>
+
+    <div class="tabela-container">
+        <table class="demandas-table">
+            <thead>
+                <tr>
+                    <th>ID da Demanda</th>
+                    <th>Data de Abertura</th>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Status</th>
+                    <th>Solicitante</th>
+                    <th>Realizado por</th>
+                    <th>Realizado em</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for demanda in demandas %}
+                <tr data-id="{{ demanda.id }}">
+                    <td>{{ demanda.id }}</td>
+                    <td>{{ demanda.data_criacao }}</td>
+                    <td>{{ demanda.titulo }}</td>
+                    <td>{{ demanda.descricao }}</td>
+                    <td>{{ demanda.status }}</td>
+                    <td>{{ demanda.operador }}</td>
+                    <td>{{ demanda.realizador }}</td>
+                    <td>{{ demanda.realizadoem }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8">Nenhuma demanda encontrada.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const rows = document.querySelectorAll('.demandas-table tbody tr');
+        rows.forEach(function(row) {
+            row.addEventListener('dblclick', function() {
+                const idDemanda = this.dataset.id;
+                if (idDemanda) {
+                    window.location.href = `{% url 'historico_demanda' 0 %}`.replace('0', idDemanda);
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

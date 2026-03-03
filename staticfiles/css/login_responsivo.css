@@ -1,0 +1,159 @@
+/* Define o estilo básico da página */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+    height: 100vh; /* Altura de 100% da tela */
+}
+
+/* Container principal da tela de login */
+.login-container {
+    background-color: white;
+    padding: 40px; /* Espaçamento interno */
+    border-radius: 10px; /* Borda arredondada */
+    box-shadow: 0 10px 48px rgba(0, 0, 0, 0.1); /* Sombra para destaque */
+    width: 350px; /* Largura fixa */
+    text-align: center; /* Centraliza os itens no centro */
+}
+
+/* Logo da empresa */
+.logo img {
+    width: 200px; /* Tamanho da imagem logo */
+    margin-bottom: 20px; /* Espaço entre logo e formulário */
+}
+
+/* Estilo dos grupos de input */
+.input-group {
+    margin-bottom: 20px; /* Espaçamento entre os campos */
+    text-align: left; /* Alinha as labels à esquerda */
+}
+
+/* Estilo das labels */
+.input-group label {
+    display: block;
+    font-size: 14px; /* Tamanho da fonte */
+    color: #333; /* Cor da fonte */
+    margin-bottom: 5px; /* Espaçamento entre label e input */
+}
+
+/* Estilo dos campos de input */
+.input-group input {
+    width: 100%; /* Largura completa do container */
+    padding: 10px; /* Espaçamento interno do campo */
+    border: 1px solid #ccc; /* Borda padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 14px; /* Tamanho do texto */
+}
+
+/* Estilo do link 'Esqueci minha senha' */
+.esqueci-senha {
+    margin-bottom: 20px; /* Espaçamento abaixo do link */
+    text-align: right; /* Alinhado à direita */
+}
+
+/* Estilo do link */
+.esqueci-senha a {
+    font-size: 12px; /* Tamanho da fonte do link */
+    color: #007bff; /* Cor do link (azul) */
+    text-decoration: none; /* Remove o sublinhado */
+}
+
+.esqueci-senha a:hover {
+    text-decoration: underline; /* Sublinhado ao passar o mouse */
+}
+
+/* Estilo do grupo de checkbox */
+.checkbox-group {
+    margin-bottom: 20px; /* Espaçamento abaixo do checkbox */
+    text-align: left; /* Alinha à esquerda */
+    font-size: 14px;
+}
+
+/* Estilo dos botões */
+.button-group {
+    display: flex;
+    justify-content: space-between; /* Deixa os botões alinhados lado a lado */
+    margin-top: 20px;
+}
+
+/* Estilo do botão 'Entrar' */
+.btn-entrar {
+    background-color: #007bff; /* Cor de fundo do botão (azul) */
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none; /* Remove borda padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 16px; /* Tamanho do texto */
+    cursor: pointer; /* Muda o cursor ao passar no botão */
+    width: 48%; /* Largura de 48% para os dois botões caberem no espaço */
+}
+
+.btn-entrar:hover {
+    background-color: #0056b3; /* Cor ao passar o mouse */
+}
+
+/* Estilo do botão 'Cancelar' */
+.btn-cancelar {
+    background-color: #dc3545; /* Cor de fundo vermelha para o botão 'Cancelar' */
+    color: white; /* Cor do texto */
+    padding: 10px 20px; /* Espaçamento interno */
+    border: none; /* Remove borda padrão */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-size: 16px; /* Tamanho do texto */
+    cursor: pointer; /* Muda o cursor ao passar no botão */
+    width: 48%; /* Largura de 48% para os dois botões caberem no espaço */
+}
+
+.btn-cancelar:hover {
+    background-color: #c82333; /* Cor ao passar o mouse */
+}
+
+/* --------- RESPONSIVIDADE --------- */
+
+/* Ajustes para telas menores que 768px */
+@media (max-width: 768px) {
+    .login-container {
+        width: 90%; /* Reduz a largura para ocupar 90% da tela */
+        padding: 20px; /* Reduz o espaçamento interno */
+    }
+
+    .logo img {
+        width: 150px; /* Reduz o tamanho da logo */
+    }
+
+    .btn-entrar,
+    .btn-cancelar {
+        width: 100%; /* Botões ocupam 100% da largura no empilhamento */
+        margin-bottom: 10px; /* Adiciona espaçamento entre os botões */
+    }
+
+    .button-group {
+        flex-direction: column; /* Empilha os botões em telas pequenas */
+        align-items: stretch; /* Ajusta largura ao container */
+    }
+
+    .esqueci-senha {
+        text-align: center; /* Centraliza o link em telas pequenas */
+    }
+}
+
+/* Ajustes para telas menores que 480px */
+@media (max-width: 480px) {
+    .input-group input {
+        font-size: 12px; /* Reduz o tamanho da fonte */
+        padding: 8px; /* Reduz o espaçamento interno */
+    }
+
+    .input-group label {
+        font-size: 12px; /* Reduz o tamanho da fonte das labels */
+    }
+
+    .btn-entrar,
+    .btn-cancelar {
+        font-size: 14px; /* Ajusta tamanho da fonte nos botões */
+    }
+}

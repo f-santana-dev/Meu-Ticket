@@ -1,0 +1,148 @@
+<!-- relatorio.html -->
+
+{% extends 'base.html' %} {% load static %} {% block titulo %}Relatório de
+Demandas{% endblock %} {% block content %}
+<link rel="stylesheet" href="{% static 'css/relatorio_responsivo.css' %}" />
+
+<div class="container-main">
+  <!-- Formulário e Filtros -->
+  <div class="filter-report-section">
+    <!-- Painel de Filtros com a barra de ferramentas -->
+    <div class="filter-panel">
+      <form id="relatorioForm">
+        <!-- Barra de Ferramentas dentro do form -->
+        <div class="toolbar">
+          <button id="btn-visualizar" class="btn-toolbar">Visualizar</button>
+          <button type="reset" class="btn-toolbar">Limpar</button>
+           <button
+            type="button"
+            class="btn-toolbar"
+            onclick="window.location.href='{% url 'homepage' %}'"
+          >
+            Sair
+          </button>
+        </div>
+
+        <!-- Campos de Filtros -->
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select name="status" id="status">
+            <option value="todos">Todos</option>
+            {% for s in status_options %}
+            <option value="{{ s.0 }}">{{ s.1 }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="area">Área</label>
+          <select name="area" id="area">
+            <option value="todos">Todas</option>
+            {% for area in areas %}
+            <option value="{{ area.id }}">{{ area.nomearea }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="usuario">Usuário</label>
+          <select name="usuario" id="usuario">
+            <option value="todos">Todos</option>
+            {% for usuario in usuarios %}
+            <option value="{{ usuario.id }}">{{ usuario.nome }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="input-group">
+          <label for="periodo">Período de Realização</label>
+          <div class="period">
+            <input
+              type="date"
+              name="data_inicio"
+              id="inicio"
+              value="{{ filtros.data_inicio }}"
+            />
+            <span>a</span>
+            <input
+              type="date"
+              name="data_fim"
+              id="fim"
+              value="{{ filtros.data_fim }}"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <!-- Painel de Relatório com a barra de ferramentas fixada -->
+    <div class="report-panel">
+      <!-- Mensagem de carregamento -->
+      <div id="loading" style="display: none; text-align: center">
+        Carregando relatório...
+      </div>
+
+      <!-- Adicionando o iframe para o preview do relatório -->
+      <iframe
+        id="relatorioFrame"
+        name="relatorioFrame"
+        style="width: 100%; height: 85vh; border: none; overflow: hidden"
+        onload="document.getElementById('loading').style.display='none';"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Obtém a data atual no formato yyyy-mm-dd
+    const today = new Date();
+    const todayFormatted = today.toISOString().split('T')[0];
+
+    // Seleciona os inputs de data
+    const inicioInput = document.getElementById('inicio');
+    const fimInput = document.getElementById('fim');
+
+    // Define a data atual nos inputs, caso estejam vazios
+    if (!inicioInput.value) inicioInput.value = todayFormatted;
+    if (!fimInput.value) fimInput.value = todayFormatted;
+
+    // Evento do botão Visualizar para capturar e enviar os filtros ao iframe
+    document
+      .getElementById('btn-visualizar')
+      .addEventListener('click', function (event) {
+        event.preventDefault(); // Impede o comportamento padrão de recarregar a página
+
+        // Captura os filtros e valida as datas
+        const inicio = new Date(inicioInput.value);
+        const fim = new Date(fimInput.value);
+
+        if (inicio > fim) {
+          alert('A data de início não pode ser maior que a data de fim.');
+          return; // Interrompe a execução em caso de erro
+        }
+
+        // Monta a URL com os parâmetros dos filtros
+        const form = document.getElementById('relatorioForm');
+        const formData = new FormData(form);
+        const queryString = new URLSearchParams(formData).toString();
+        const url = "{% url 'relatorio_preview' %}?" + queryString;
+
+        // Exibe a mensagem de carregamento
+        document.getElementById('loading').style.display = 'block';
+
+        // Atualiza o iframe com a URL gerada
+        const iframe = document.getElementById('relatorioFrame');
+        iframe.src = url;
+      });
+
+    // Evento para o botão Limpar
+    document
+      .querySelector('button[type="reset"]')
+      .addEventListener('click', function () {
+        const iframe = document.getElementById('relatorioFrame');
+        iframe.src = ''; // Limpa o conteúdo do iframe
+      });
+  });
+</script>
+{% endblock %}

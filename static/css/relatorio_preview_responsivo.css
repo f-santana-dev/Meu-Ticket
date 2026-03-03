@@ -1,0 +1,208 @@
+/* Estilos gerais */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+  
+  /* Barra de ferramentas fixa no topo */
+  .toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    padding: 1px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  /* Container principal */
+  .container {
+    width: calc(210mm - 10mm);
+    height: auto;
+    margin: 40px auto 1px;
+    padding: 50px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Cabeçalho */
+  .header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+  
+  .titulo-container {
+    display: flex;
+    align-items: center;
+    gap: 150px;
+    margin-bottom: 1px;
+  }
+  
+  .titulo-container h1 {
+    font-size: 24px;
+    color: #444;
+    margin: 0;
+  }
+  
+  .logo {
+    width: 80px;
+    height: 40px;
+  }
+  
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: -10px;
+  }
+  
+  .filters p {
+    margin: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .filters strong {
+    color: #333;
+  }
+  
+  /* Tabela de demandas */
+  .demandas-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin-top: 0;
+  }
+  
+  .demandas-table th,
+  .demandas-table td {
+    padding: 5px;
+    text-align: left;
+    border: 1px solid #ddd;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .demandas-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .demandas-table td {
+    font-size: 10px;
+  }
+  
+  .demandas-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Rodapé de paginação */
+  .pagination {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .pagination-link {
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .pagination-link:hover {
+    text-decoration: underline;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 1024px) {
+    .titulo-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  
+    .titulo-container h1 {
+      font-size: 20px;
+    }
+  
+    .filters {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      width: 95%;
+      padding: 20px;
+    }
+  
+    .titulo-container {
+      align-items: flex-start;
+    }
+  
+    .titulo-container h1 {
+      font-size: 18px;
+    }
+  
+    .filters p {
+      font-size: 12px;
+    }
+  
+    .demandas-table th,
+    .demandas-table td {
+      font-size: 9px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .container {
+      width: 100%;
+      padding: 10px;
+    }
+  
+    .titulo-container {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 5px;
+    }
+  
+    .logo {
+      width: 60px;
+      height: 30px;
+    }
+  
+    .titulo-container h1 {
+      font-size: 16px;
+    }
+  
+    .filters p {
+      font-size: 10px;
+    }
+  
+    .demandas-table th,
+    .demandas-table td {
+      font-size: 8px;
+      padding: 3px;
+    }
+  
+    .pagination {
+      font-size: 10px;
+    }
+  }
+  
