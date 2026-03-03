@@ -33,12 +33,21 @@ from django.template.loader import render_to_string
 #from xhtml2pdf import pisa
 from urllib.parse import urlencode  # Import para construir query strings
 import os
-from demanda.management_views import run_migrations
 
 
 
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
+
+
+def get_user_tipo(user):
+    perfil = getattr(user, 'perfil', None)
+    if perfil and hasattr(perfil, 'tipo'):
+        return perfil.tipo
+    return getattr(user, 'tipo', None)
+
+
+@login_required(login_url='login')
 def homepage(request):
      return render (request, 'base.html') 
  
@@ -57,10 +66,13 @@ def login_view(request):
             login(request, user)
             
             # Verifica se o usuário tem perfil de operador ou suporte
-            if user.perfil.tipo == 'operador':
+            user_tipo = get_user_tipo(user)
+            if user_tipo == 'operador':
                 return redirect('homepage')  # Redireciona para a home se for operador
-            elif user.perfil.tipo == 'suporte':
+            elif user_tipo == 'suporte':
                 return redirect('dashboard_suporte')  # Redireciona para o dashboard de suporte
+            messages.error(request, "Usuário sem perfil de acesso configurado.")
+            return redirect('login')
         else:
             # Mensagem de erro se a autenticação falhar
             messages.error(request, "Email ou senha inválidos")
@@ -73,7 +85,7 @@ def login_view(request):
  
 # Configura o logger
 logger = logging.getLogger(__name__)
-@login_required(login_url='/login/')
+@login_required(login_url='login')
 # View responsável por exibir e processar o formulário de cadastro de usuário
 
 def cadastrar_usuario(request):
@@ -119,6 +131,7 @@ def filtrar_demandas(request):
     
  
     
+@login_required(login_url='login')
 def cadastrar_nova_demanda(request):
     if request.method == 'POST':
         form = Nova_DemandaForm(request.POST, request.FILES)
@@ -147,7 +160,7 @@ def cadastrar_nova_demanda(request):
                     f"Status: {demanda.status}\n\n"
                     "Obrigado por utilizar o sistema MeuTicket!\n"
                 )
-                remetente = 'bragasan34@gmail.com'
+                remetente = settings.DEFAULT_FROM_EMAIL
                 destinatario = [request.user.email]
 
                 send_mail(assunto, mensagem, remetente, destinatario)
@@ -170,6 +183,7 @@ def cadastrar_nova_demanda(request):
 
 
    
+@login_required(login_url='login')
 def historico_demanda(request, id_demanda):
     # Busca a demanda pelo ID ou retorna 404 se não for encontrada
     demanda = get_object_or_404(Demanda, id=id_demanda)
@@ -179,6 +193,7 @@ def historico_demanda(request, id_demanda):
 
 
 
+@login_required(login_url='login')
 def enviar_mensagem(request, demanda_id):
     # Busca a demanda associada ao ID
     demanda = get_object_or_404(Demanda, id=demanda_id)
@@ -212,7 +227,7 @@ def enviar_mensagem(request, demanda_id):
                     f"Status: {demanda.status}\n\n"
                     "Obrigado por utilizar o sistema MeuTicket!\n"
                 )
-                remetente = 'bragasan34@gmail.com'
+                remetente = settings.DEFAULT_FROM_EMAIL
                 destinatario = [operador.email]  # E-mail do operador da demanda
 
                 send_mail(assunto, mensagem, remetente, destinatario)
@@ -236,9 +251,14 @@ def enviar_mensagem(request, demanda_id):
 def fechar_demanda(request, demanda_id):
     # Buscar a demanda pelo ID
     demanda = get_object_or_404(Demanda, id=demanda_id)
+
+    if request.method != 'POST':
+        messages.error(request, 'Metodo invalido para fechar demanda.')
+        return redirect('historico_demanda', id_demanda=demanda.id)
+
     
     # Verificar se o usuário é suporte
-    if request.user.perfil.tipo == 'suporte':
+    if get_user_tipo(request.user) == 'suporte':
         # Alterar o status da demanda e definir o realizador
         demanda.status = 'Fechado'
         demanda.realizador = request.user
@@ -255,20 +275,27 @@ def fechar_demanda(request, demanda_id):
 
 
 
+@login_required(login_url='login')
 def dashboard_suporte(request):
-    if request.user.perfil.tipo == 'suporte':
+    if get_user_tipo(request.user) == 'suporte':
         demandas_abertas = Demanda.objects.filter(status='Aberto', realizador__isnull=True)
         logger.info(f'Demandas em aberto: {demandas_abertas}')  # Verifica quais demandas estão sendo passadas
         return render(request, 'dashboard_suporte.html', {'demandas_abertas': demandas_abertas})
     
-    return redirect('home')
+    messages.error(request, 'Acesso restrito a equipe de suporte.')
+    return redirect('homepage')
 
 
 @login_required
 def iniciar_atendimento(request, demanda_id):
     demanda = get_object_or_404(Demanda, id=demanda_id)
 
-    if request.user.perfil.tipo == 'suporte':
+    if request.method != 'POST':
+        messages.error(request, 'Metodo invalido para iniciar atendimento.')
+        return redirect('historico_demanda', id_demanda=demanda.id)
+
+
+    if get_user_tipo(request.user) == 'suporte':
         # Iniciar atendimento, muda o status da demanda
         demanda.status = 'Em Atendimento'
         demanda.realizador = request.user
@@ -287,7 +314,7 @@ def iniciar_atendimento(request, demanda_id):
                 f"Status: {demanda.status}\n\n"
                 "Obrigado por utilizar o sistema MeuTicket!\n"
             )
-            remetente = 'bragasan34@gmail.com'
+            remetente = settings.DEFAULT_FROM_EMAIL
             destinatario = [operador.email]  # E-mail do operador da demanda
 
             send_mail(assunto, mensagem, remetente, destinatario)
@@ -305,7 +332,12 @@ def iniciar_atendimento(request, demanda_id):
 def reabrir_demanda(request, demanda_id):
     demanda = get_object_or_404(Demanda, id=demanda_id)
 
-    if request.user.perfil.tipo == 'suporte':
+    if request.method != 'POST':
+        messages.error(request, 'Metodo invalido para reabrir demanda.')
+        return redirect('historico_demanda', id_demanda=demanda.id)
+
+
+    if get_user_tipo(request.user) == 'suporte':
         # Verifica se a demanda está fechada
         if demanda.status == 'Fechado':
             demanda.status = 'Aberto'
@@ -322,6 +354,7 @@ def reabrir_demanda(request, demanda_id):
 
 
 
+@login_required(login_url='login')
 def relatorio(request):
     # Pegando os filtros dos parâmetros da requisição
     status = request.GET.get('status', 'todos')
@@ -386,6 +419,7 @@ def relatorio(request):
     return render(request, 'relatorio.html', context)
 
 
+@login_required(login_url='login')
 def relatorio_preview_view(request):
     # Obter filtros da requisição GET
     status = request.GET.get('status', 'todos')
@@ -470,6 +504,7 @@ def relatorio_preview_view(request):
     return render(request, 'relatorio_preview.html', context)
 
  
+@login_required(login_url='login')
 def gerar_pdf_relatorio(request):
     # Pegando os mesmos filtros da visualização
     status = request.GET.get('status', 'todos')
@@ -561,6 +596,7 @@ def gerar_pdf_relatorio(request):
     return response
 
 
+@login_required(login_url='login')
 def gerar_pdf(request):
     # Filtros da requisição GET
     status = request.GET.get('status', 'todos')
@@ -763,3 +799,6 @@ def gerar_pdf(request):
 
 
 # Create your views here.
+
+
+
