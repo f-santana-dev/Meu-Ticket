@@ -4,34 +4,24 @@
 
 <div class="welcome">
   <img src="{% static 'img/MeuTicket.png' %}" alt="Logo" class="logo" />
-  <span>Olá, {{ request.user.nome }}</span>
+  <span>Ola, {{ request.user.nome }}</span>
 </div>
 
 <nav class="navbar">
-  <!-- Saudação com o nome do usuário -->
-
-  <!-- Ícones de funcionalidades -->
   <ul class="nav-icons">
     <li>
-     
       <a href="{% url 'cadastrar_usuario' %}">
-        <img src="{% static 'img/cadastro.png' %}" alt="Cadastro de Usuários" />
-        <span>Cadastrar Usuários</span>
+        <img src="{% static 'img/cadastro.png' %}" alt="Cadastro de Usuarios" />
+        <span>Cadastrar Usuarios</span>
       </a>
     </li>
 
-
-
     <li>
-      
-      <a href="{% url 'cadastrar_nova_demanda' %}">         
+      <a href="{% url 'cadastrar_nova_demanda' %}">
         <img src="{% static 'img/suporte.png' %}" alt="Cadastrar Demandas" />
         <span>Cadastrar Chamado</span>
       </a>
     </li>
-
-
-
 
     <li>
       <a href="{% url 'filtrar_demandas' %}">
@@ -39,33 +29,19 @@
         <span>Filtrar Demandas</span>
       </a>
     </li>
-    <li>
-      
-      <a href="{% url 'relatorio' %}"> 
-          <img src="{% static 'img/relatorio.png' %}" alt="Relatório Demandas" />
-          <span>Relatório Demandas</span>
-      </a>
-  </li>
-  
-    <!-- Botão Sair, alinhado à direita -->
-    <li class="nav-exit">
-      {# ERRADO (did�tico): apenas ir para login n�o encerra a sess�o #}
-      {#
-      <a href="{% url 'login' %}">
-        <img src="{% static 'img/saida.png' %}" alt="Sair" />
-        <span>Encerrar Sess�o</span>
-      </a>
-      #}
 
-      {# CORRETO: enviar POST para a rota de logout real #}
-      <form method="post" action="{% url 'logout' %}" style="display:inline;">
-        {% csrf_token %}
-        <button type="submit" style="background:none;border:none;padding:0;cursor:pointer;">
-          <img src="{% static 'img/saida.png' %}" alt="Sair" />
-          <span>Encerrar Sess�o </span>
-        </button>
-      </form>
+    <li>
+      <a href="{% url 'relatorio' %}">
+        <img src="{% static 'img/relatorio.png' %}" alt="Relatorio Demandas" />
+        <span>Relatorio Demandas</span>
+      </a>
+    </li>
+
+    <li class="nav-exit">
+      <a href="{% url 'logout' %}">
+        <img src="{% static 'img/saida.png' %}" alt="Sair" />
+        <span>Encerrar Sessao </span>
+      </a>
     </li>
   </ul>
 </nav>
-
