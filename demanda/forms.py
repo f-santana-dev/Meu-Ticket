@@ -2,11 +2,6 @@ from django import forms
 from .models import Demanda, Servico, Usuario, Urgencia
 from django.contrib.auth.forms import UserCreationForm
 from django import template
-#from .models import Imagem
-
-
-
-
 
 
 class UsuarioForm(UserCreationForm):

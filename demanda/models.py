@@ -1,6 +1,3 @@
-#################Models.py ###################
-
-
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
@@ -93,13 +90,19 @@ class Demanda(models.Model):
         ('Em Atendimento', 'Em Atendimento'),  # Adicionando opção correta
     ]
     
-    status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Aberto')  # Aumentando max_length
-    
-
     titulo = models.CharField(max_length=100)
     descricao = models.TextField()
     imagem = models.ImageField(upload_to='demandas/', null=True, blank=True)
     area = models.ForeignKey('Area', on_delete=models.CASCADE)
+
+    # ERRADO (didatico):
+    # status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Aberto')
+    # status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Aberto')
+    #
+    # Declarar o mesmo campo 2x na classe gera sobrescrita silenciosa.
+    # Isso confunde manutencao e pode gerar erro em migracao.
+    #
+    # CORRETO: manter apenas UMA declaracao do campo.
     status = models.CharField(max_length=15, choices=STATUS_CHOICES, default='Aberto')  # Aumentando max_length
 
     data_criacao = models.DateTimeField(auto_now_add=True)
