@@ -24,5 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('demanda.urls')),  # Inclui as URLs da aplicação 'demanda'
 ]
-urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# Servir media apenas em desenvolvimento (ou modo demo, se habilitado).
+serve_media_in_prod = getattr(settings, "SERVE_MEDIA_IN_PROD", False)
+if settings.DEBUG or serve_media_in_prod:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+try:
+    import dj_database_url
+except ImportError:
+    dj_database_url = None
 
 def env_bool(key, default=False):
     return os.environ.get(key, str(default)).strip().lower() in ("1", "true", "yes", "on")
@@ -29,6 +33,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "dev-insecure-change-me")
 DEBUG = env_bool("DEBUG", True)
 
 ALLOWED_HOSTS = [host.strip() for host in os.environ.get("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",") if host.strip()]
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip()
+    for origin in os.environ.get("CSRF_TRUSTED_ORIGINS", "").split(",")
+    if origin.strip()
+]
+SERVE_MEDIA_IN_PROD = env_bool("SERVE_MEDIA_IN_PROD", False)
 
 
 # Application definition
@@ -45,6 +55,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,8 +91,22 @@ WSGI_APPLICATION = 'MeuTicket.wsgi.application'
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Configuração do banco de dados
-if os.environ.get('DB_NAME'):  # Se as variáveis de ambiente do PostgreSQL estiverem definidas
+# Configuracao do banco
+# Preferencia: DATABASE_URL (padrao do Render). Fallback: variaveis DB_* e SQLite local.
+DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
+
+if DATABASE_URL:
+    if not dj_database_url:
+        raise RuntimeError("DATABASE_URL foi definido, mas dj-database-url nao esta instalado.")
+
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=not DEBUG,
+        )
+    }
+elif os.environ.get('DB_NAME'):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -92,7 +117,7 @@ if os.environ.get('DB_NAME'):  # Se as variáveis de ambiente do PostgreSQL esti
             'PORT': os.environ.get('DB_PORT', '5432'),
         }
     }
-else:  # Caso contrário, use SQLite3 (para desenvolvimento local)
+else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -180,7 +205,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Caminho onde os arquivos estáticos serão coletados
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -191,6 +216,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -210,6 +236,8 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 SECURE_SSL_REDIRECT = env_bool("SECURE_SSL_REDIRECT", False)
 SESSION_COOKIE_SECURE = env_bool("SESSION_COOKIE_SECURE", False)
 CSRF_COOKIE_SECURE = env_bool("CSRF_COOKIE_SECURE", False)
+if not DEBUG:
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'homepage'
 
