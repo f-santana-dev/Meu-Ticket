@@ -47,4 +47,3 @@ def ensure_admin_from_env(stdout_write=None) -> bool:
     if stdout_write:
         stdout_write("Superusuario criado com sucesso.")
     return True
-

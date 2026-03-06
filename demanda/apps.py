@@ -12,6 +12,9 @@ class DemandaConfig(AppConfig):
         def _bootstrap_admin(sender, **kwargs):
             from demanda.bootstrap_admin import ensure_admin_from_env
 
-            ensure_admin_from_env()
+            # Print vai para o log do build (Render) e ajuda a diagnosticar se rodou.
+            ensure_admin_from_env(stdout_write=print)
 
-        post_migrate.connect(_bootstrap_admin, sender=self, dispatch_uid="demanda_bootstrap_admin")
+        # Nao filtrar por sender (AppConfig) evita casos em que o sinal nao casa com `self`.
+        # A funcao e idempotente, entao repetir nao causa duplicacao.
+        post_migrate.connect(_bootstrap_admin, dispatch_uid="demanda_bootstrap_admin")
