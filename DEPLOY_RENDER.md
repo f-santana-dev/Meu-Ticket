@@ -52,8 +52,26 @@ EMAIL_HOST_PASSWORD=
 DEFAULT_FROM_EMAIL=
 ```
 
+## 6. Criar admin sem terminal (Render free)
+
+Como no plano free voce nao tem shell/terminal, o projeto tem um comando automatico:
+`python manage.py bootstrap_admin`
+
+Ele cria um superusuario somente se:
+- `AUTO_CREATE_ADMIN=True`
+- e as variaveis abaixo estiverem preenchidas
+
+```env
+AUTO_CREATE_ADMIN=True
+ADMIN_EMAIL=seuemail@exemplo.com
+ADMIN_PASSWORD=senha-forte-aqui
+ADMIN_NOME=Seu Nome
+ADMIN_CPF=12345678901
+```
+
+Recomendacao: depois do primeiro login no `/admin/`, volte `AUTO_CREATE_ADMIN` para `False`.
+
 ## 5. Observacao sobre arquivos em `media/`
 
 Para demo/portfolio, `SERVE_MEDIA_IN_PROD=True` ajuda a nao quebrar imagens.
 Para producao real com uploads, o ideal e usar storage externo (S3/Cloudinary), porque o disco do Render nao e um storage persistente para uploads.
-

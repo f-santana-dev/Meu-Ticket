@@ -6,6 +6,7 @@ services:
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
       python manage.py migrate
+      python manage.py bootstrap_admin
     startCommand: gunicorn MeuTicket.wsgi:application
     envVars:
       - key: SECRET_KEY
@@ -36,9 +37,18 @@ services:
         sync: false
       - key: DEFAULT_FROM_EMAIL
         sync: false
+      - key: AUTO_CREATE_ADMIN
+        value: "False"
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: ADMIN_NOME
+        sync: false
+      - key: ADMIN_CPF
+        sync: false
 
 databases:
   - name: meu-ticket-db
     databaseName: meuticket
     user: meuticket_user
-
