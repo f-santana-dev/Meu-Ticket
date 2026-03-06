@@ -28,16 +28,19 @@ class Command(BaseCommand):
             return
 
         User = get_user_model()
-        if User.objects.filter(email=email).exists():
-            self.stdout.write("Admin ja existe. Criacao automatica ignorada.")
+        user = User.objects.filter(email=email).first()
+
+        if user:
+            # Se o usuario ja existir, garante que ele vira admin e que a senha e atualizada.
+            user.nome = nome
+            user.cpf = cpf
+            user.is_active = True
+            user.is_staff = True
+            user.is_superuser = True
+            user.set_password(password)
+            user.save()
+            self.stdout.write(self.style.SUCCESS("Usuario existente promovido para admin e senha atualizada."))
             return
 
-        User.objects.create_superuser(
-            email=email,
-            password=password,
-            nome=nome,
-            cpf=cpf,
-        )
-
+        User.objects.create_superuser(email=email, password=password, nome=nome, cpf=cpf)
         self.stdout.write(self.style.SUCCESS("Superusuario criado com sucesso."))
-
