@@ -79,6 +79,13 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return self.email
 
+    # Metodos usados pelo Django Admin e por exibicao em outras partes do projeto.
+    # Sao "safe": nao mexem em banco/migracao, apenas retornam strings.
+    def get_full_name(self):
+        return self.nome or self.email
+
+    def get_short_name(self):
+        return self.nome or self.email
     
 
     
@@ -131,7 +138,9 @@ class Mensagem(models.Model):
     data_envio = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"Mensagem de {self.autor.get_full_name} em {self.data_envio}"
+        # get_full_name e um metodo (precisa de parenteses). Mantemos fallback seguro.
+        autor_nome = self.autor.get_full_name() if hasattr(self.autor, "get_full_name") else str(self.autor)
+        return f"Mensagem de {autor_nome} em {self.data_envio}"
 
 
 
