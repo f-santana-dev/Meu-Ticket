@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 from .models import Area, Demanda, Perfil, Servico, Urgencia, Usuario
+from .forms import UsuarioAdminChangeForm, UsuarioAdminCreationForm
 
 
 admin.site.register(Area)
@@ -14,6 +15,14 @@ admin.site.register(Urgencia)
 @admin.register(Usuario)
 class UsuarioAdmin(BaseUserAdmin):
     
+    # IMPORTANTE (didatico):
+    # Como o model Usuario e customizado (usa email como login), precisamos dizer ao admin
+    # quais formularios usar. Sem isso, o Django tenta usar os forms do User padrao (username),
+    # o que costuma causar erro 500 na tela /admin/demanda/usuario/.
+    add_form = UsuarioAdminCreationForm
+    form = UsuarioAdminChangeForm
+    model = Usuario
+
    
     list_display = ("email", "nome", "cpf", "perfil", "area", "is_staff", "is_active")
     search_fields = ("email", "nome", "cpf")

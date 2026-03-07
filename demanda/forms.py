@@ -1,6 +1,6 @@
 from django import forms
 from .models import Demanda, Servico, Usuario, Urgencia
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django import template
 
 
@@ -15,6 +15,47 @@ class UsuarioForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+
+class UsuarioAdminCreationForm(UserCreationForm):
+    """
+    Form usado SOMENTE no Django Admin para criar o Usuario customizado.
+
+    Importante: o UserAdmin padrao espera campos do User default (ex: username).
+    Como nosso model usa email, precisamos de um form explicitamente baseado em Usuario,
+    com os mesmos campos declarados em UsuarioAdmin.add_fieldsets.
+    """
+
+    class Meta:
+        model = Usuario
+        fields = ["email", "nome", "cpf", "perfil", "area", "is_staff", "is_active"]
+
+
+class UsuarioAdminChangeForm(UserChangeForm):
+    """
+    Form usado SOMENTE no Django Admin para editar o Usuario customizado.
+
+    Sem isso, a tela /admin/demanda/usuario/ pode quebrar ao tentar renderizar campos
+    que nao existem no User default (ex: username) ou ao usar forms incorretos.
+    """
+
+    class Meta:
+        model = Usuario
+        fields = [
+            "email",
+            "password",
+            "nome",
+            "cpf",
+            "perfil",
+            "area",
+            "is_active",
+            "is_staff",
+            "is_superuser",
+            "groups",
+            "user_permissions",
+            "last_login",
+            "data_criacao",
+        ]
 
 
 register = template.Library()
