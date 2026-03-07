@@ -9,6 +9,10 @@ services:
       python manage.py bootstrap_admin
     startCommand: gunicorn MeuTicket.wsgi:application
     envVars:
+      # Django 5.1 nao e compatível com Python 3.14 (preview) e isso quebra templates/admin em runtime.
+      # Fix: forçar uma versão suportada no Render.
+      - key: PYTHON_VERSION
+        value: "3.12.8"
       - key: SECRET_KEY
         generateValue: true
       - key: DEBUG

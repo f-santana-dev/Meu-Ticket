@@ -17,6 +17,10 @@ Guia objetivo para publicar o projeto `MeuTicket` (Django) no Render usando Guni
 3. Configure:
    - `Runtime`: Python
    - `Branch`: `main`
+   - `Python version`: 3.12.x (recomendado)
+
+> Importante: Django 5.1 pode quebrar em Python 3.14 (preview). Se o Render escolher 3.14 por padrao,
+> force a versao 3.12 no painel (ou via `PYTHON_VERSION` no `render.yaml`).
 
 ## 3. Build e Start Command
 
